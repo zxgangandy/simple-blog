@@ -1,7 +1,7 @@
 {
   "version": "https://jsonfeed.org/version/1",
   "title": "zxgangandy Blog",
-  "home_page_url": "https://zxgangandy.github.io/simple-blog/",
+  "home_page_url": "https://zxgangandy.github.io/simple-blog",
   "feed_url": "https://tech-blog.cymetrics.io/feed/feed.json",
   "description": "zxgangandy Blog",
   "author": {

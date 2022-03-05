@@ -1,0 +1,12 @@
+---
+templateClass: tmpl-home
+---
+{% extends "zh-cn/layouts/base.njk" %}
+
+{% block extraArticleHeader %}
+   <aside class="w-full" style="text-align:left;">
+      这是zxgangandy的技术博客，更多请关注 <a href="https://github.com/zxgandy" rel="noreferrer noopener" target="_blank">github</a>
+   </aside>
+{% endblock %}
+
+{{ content | safe }}

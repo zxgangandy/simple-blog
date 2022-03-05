@@ -1,15 +1,15 @@
 {
-  "title": "Cymetrics Tech Blog",
-  "url": "https://tech-blog.cymetrics.io",
-  "domain": "tech-blog.cymetrics.io",
-  "description": "Cymetrics Tech Blog",
+  "title": "zxgangandy Blog",
+  "url": "https://zxgangandy.github.io/simple-blog/",
+  "domain": "zxgangandy.github.io",
+  "description": "zxgangandy Blog",
   "genre": "Insert a schema.org genre",
   "googleAnalyticsId": "G-3VBVCXV9Z0",
   "sendWebVitals": false,
   "facebookUrl": "https://www.facebook.com/cymetrics",
   "linkedinUrl": "https://www.linkedin.com/company/cymetrics",
   "feed": {
-    "subtitle": "Cymetrics Tech Blog",
+    "subtitle": "zxgangandy Blog",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
     "id": "https://tech-blog.cymetrics.io"
@@ -19,7 +19,7 @@
     "url": "https://tech-blog.cymetrics.io/feed/feed.json"
   },
   "author": {
-    "name": "Cymetrics Tech Blog",
+    "name": "zxgangandy Blog",
     "twitterHandle": ""
   },
   "authors": {
@@ -70,6 +70,6 @@
     }
   },
   "publisher": {
-    "name": "Cymetrics Tech Blog"
+    "name": "zxgangandy Blog"
   }
 }

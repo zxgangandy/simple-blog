@@ -12,7 +12,7 @@
     "subtitle": "zxgangandy Blog",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://zxgangandy.github.io"
+    "id": "https://zxgangandy.github.ioK"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
@@ -67,6 +67,11 @@
       "name": "zet",
       "intro": "",
       "avatarUrl": "/img/authors/zet_logo.jpeg"
+    },
+    "zxgangandy": {
+      "name": "zxgangandy",
+      "intro": "",
+      "avatarUrl": "/img/authors/zxgangandy_logo.png"
     }
   },
   "publisher": {

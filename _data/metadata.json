@@ -6,13 +6,13 @@
   "genre": "Insert a schema.org genre",
   "googleAnalyticsId": "G-3VBVCXV9Z0",
   "sendWebVitals": false,
-  "facebookUrl": "https://www.facebook.com/cymetrics",
-  "linkedinUrl": "https://www.linkedin.com/company/cymetrics",
+  "facebookUrl": "https://www.facebook.com/zxgangandy",
+  "linkedinUrl": "https://www.linkedin.com/zxgangandy",
   "feed": {
     "subtitle": "zxgangandy Blog",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://zxgangandy.github.ioK"
+    "id": "https://zxgangandy.github.io"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",

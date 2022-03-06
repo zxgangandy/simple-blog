@@ -3,7 +3,7 @@ title: 關於我在 Glints 找到的高風險漏洞
 date: 2022-02-08
 tags: [Security]
 author: huli
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 description: 在 2021 年 7 月時我們發現了求職平台 Glints 的四個漏洞，可以讓攻擊者偷走平台上所有求職者的履歷，這篇記錄了漏洞發現的經過以及後續回報的狀況
 image: /img/posts/huli/how-i-hacked-glints-and-your-resume/cover.png
 ---

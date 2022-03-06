@@ -3,7 +3,7 @@ title: 零基礎資安系列（一）-認識 CSRF（Cross Site Request Forgery�
 author: jo
 date: 2021-05-26
 tags: [Security,ZeroBased,CSRF]
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/jo/zerobased-cross-site-request-forgery/cover.jpeg
 ---
 <!-- summary -->
@@ -95,6 +95,6 @@ CSRF ( Cross Site Request Forgery )，翻成中文叫做**跨站請求偽造**�
 
 > [https://blog.techbridge.cc/2017/02/25/csrf-introduction/](https://blog.techbridge.cc/2017/02/25/csrf-introduction/)
 
-> [https://kknews.cc/zh-tw/tech/veqpbna.html](https://kknews.cc/zh-tw/tech/veqpbna.html)
+> [https://kknews.cc/zh-cn/tech/veqpbna.html](https://kknews.cc/zh-cn/tech/veqpbna.html)
 
 > [https://zh.wikipedia.org/wiki/跨站請求偽造](https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0)

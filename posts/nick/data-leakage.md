@@ -3,7 +3,7 @@ title: "防駭客的基本認知: 資料保護"
 date: 2022-02-17
 tags: [Security,Data leakage]
 author: nick
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/nick/data-leakage/dl_1.png
 ---
 

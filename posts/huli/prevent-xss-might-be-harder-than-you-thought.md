@@ -3,7 +3,7 @@ title: 防止 XSS 可能比想像中困難
 date: 2021-05-15
 tags: [Security, Front-end]
 author: huli
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 ---
 
 ## 前言
@@ -17,7 +17,7 @@ layout: zh-tw/layouts/post.njk
 如果使用正確那當然沒有問題，但若是有用可是設定錯誤的話，還是有可能存在 XSS 的漏洞。
 
 <!-- summary -->
-前陣子我剛從公司內轉到一個做資安的團隊 [Cymetrics](https://cymetrics.io/zh-tw)，在對一些網站做研究的時候發現了一個現成的案例，因此這篇就以這個現成的案例來說明怎樣叫做錯誤的設定，而這個設定又會帶來什麼樣的影響。
+前陣子我剛從公司內轉到一個做資安的團隊 [Cymetrics](https://cymetrics.io/zh-cn)，在對一些網站做研究的時候發現了一個現成的案例，因此這篇就以這個現成的案例來說明怎樣叫做錯誤的設定，而這個設定又會帶來什麼樣的影響。
 <!-- summary -->
 
 ## 錯誤的設定，意料之外的結果

@@ -3,7 +3,7 @@ title: SQL injection 實戰：在限制底下提升速度
 date: 2022-01-19
 tags: [Security]
 author: huli
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 ---
 
 <!-- summary -->

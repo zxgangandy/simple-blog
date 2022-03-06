@@ -3,7 +3,7 @@ title: 零基礎資安系列（三）-網站安全三本柱（Secure & SameSite 
 author: jo
 date: 2021-05-28
 tags: [Security,ZeroBased,cookie]
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/jo/zerobased-secure-samesite-httponly/cover.jpeg
 ---
 <!-- summary -->
@@ -69,7 +69,7 @@ image: /img/posts/jo/zerobased-secure-samesite-httponly/cover.jpeg
 
 ### 第一步
 
-確保自己的網站是 Https SSL ，否則你會發現你的網站一直在把使用者登出，相關設置可以參考官方文件 [How to Set Up SSL](https://docs.microsoft.com/zh-tw/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
+確保自己的網站是 Https SSL ，否則你會發現你的網站一直在把使用者登出，相關設置可以參考官方文件 [How to Set Up SSL](https://docs.microsoft.com/zh-cn/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
 
 ### 第二步
 
@@ -145,7 +145,7 @@ Set-Cookie: widget\_session=abc123; SameSite=None; Secure
 
 ### How to Set Up SSL
 
-> [https://docs.microsoft.com/zh-tw/iis/manage/configuring-security/how-to-set-up-ssl-on-iis](https://docs.microsoft.com/zh-tw/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
+> [https://docs.microsoft.com/zh-cn/iis/manage/configuring-security/how-to-set-up-ssl-on-iis](https://docs.microsoft.com/zh-cn/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
 
 ### Cookie 的 SameSite 屬性
 

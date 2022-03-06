@@ -3,7 +3,7 @@ title: 資安也要自動化 Selenium
 date: 2021-12-28
 tags: [Security, Selenium, Selenium IDE, Selenium WebDriver, Selenium Grid]
 author: nick
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/nick/selenium/se_1.jpg
 ---
 ![](/img/posts/nick/selenium/se_1.jpg)
@@ -43,7 +43,7 @@ ___
 ### 步驟 1. 安裝 Selenium IDE 
 
 * 1. 安裝 chrome
-    https://www.google.com/intl/zh-tw/chrome/
+    https://www.google.com/intl/zh-cn/chrome/
 
 * 2. 到 chrome 線上應用程式商店搜索 Selenium IDE 並安裝
     https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd
@@ -98,7 +98,7 @@ ___
 安裝步驟就不多贅述，這邊提供下載位置與測試時的版本作為參考
 
 * 1. Chrome (96.0.4664.110)
-    https://www.google.com/intl/zh-tw/chrome/
+    https://www.google.com/intl/zh-cn/chrome/
     
 * 2. Python (3.8.9)
     https://www.python.org/downloads/

@@ -3,7 +3,7 @@ title: Android App 逆向入門之四：使用 Frida 進行動態分析
 date: 2022-02-21
 tags: [Security, Mobile]
 author: huli
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/huli/android-apk-decompile-intro/cover4.png
 ---
 

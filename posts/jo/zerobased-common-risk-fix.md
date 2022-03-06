@@ -3,7 +3,7 @@ title: 資安科普番外篇（二）-如何有效率選擇風險進行修復 fe
 author: jo
 date: 2021-07-16
 tags: [Security,ZeroBased]
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/jo/zerobased-common-risk-fix/cover.jpeg
 ---
 <!-- summary -->
@@ -251,7 +251,7 @@ Security of processing
 
 **協議過舊：**
 
-[**Windows Server 2019 現已依憑證繫結提供 TLS 版本強制執行功能 - Security documentation**](https://docs.microsoft.com/zh-tw/security/engineering/disable-legacy-tls)
+[**Windows Server 2019 現已依憑證繫結提供 TLS 版本強制執行功能 - Security documentation**](https://docs.microsoft.com/zh-cn/security/engineering/disable-legacy-tls)
 
 **憑證相關：**
 

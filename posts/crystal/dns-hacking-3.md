@@ -3,7 +3,7 @@ title: DNS Hacking 之 Subdomain Enumeration 的技巧與自動化挖掘
 author: crystal
 date: 2022-01-12
 tags: [Security, DNS, Enumeration]
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/crystal/dns-hacking/cover-3.jpg
 ---
 

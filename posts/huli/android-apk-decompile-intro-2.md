@@ -3,7 +3,7 @@ title: Android App 逆向入門之二：修改 smali 程式碼
 date: 2022-02-21
 tags: [Security, Mobile]
 author: huli
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/huli/android-apk-decompile-intro/cover2.png
 ---
 

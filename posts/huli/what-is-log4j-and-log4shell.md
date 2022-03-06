@@ -3,7 +3,7 @@ title: 從監視攝影機理解 Log4j 跟 Log4Shell 漏洞
 date: 2021-12-18
 tags: [Security]
 author: huli
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/huli/what-is-log4j-and-log4shell/cover.jpeg
 ---
 
@@ -122,7 +122,7 @@ ${jndi:ldap://cymetrics.io/test}
 
 如果你是工程師，也可以用一些現有的工具檢測是否受到漏洞影響，像是：[log4j-scan](https://github.com/fullhunt/log4j-scan) 或是 jfrog 提供的 [log4j-tools](https://github.com/jfrog/log4j-tools) 等等。
 
-或如果真的不知道該如何處理，也可以[聯絡我們](https://cymetrics.io/zh-tw/free-rating)，看我們可以怎樣幫助你。
+或如果真的不知道該如何處理，也可以[聯絡我們](https://cymetrics.io/zh-cn/free-rating)，看我們可以怎樣幫助你。
 
 ## 該如何修補？
 

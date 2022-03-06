@@ -3,7 +3,7 @@ title: 淺談 XSS 攻擊與防禦的各個環節
 date: 2021-06-17
 tags: [Security, Front-end]
 author: huli
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 image: /img/posts/huli/attack-and-defense/cover.jpeg
 ---
 
@@ -114,7 +114,7 @@ document.querySelector('.search').innerHTML = q
 1. 意識到哪邊是使用者可以自己輸入資料的地方
 2. 針對不同情境去做 XSS 的防禦
 
-也可以考慮導入現成的 [WAF](https://www.cloudflare.com/zh-tw/learning/ddos/glossary/web-application-firewall-waf/)（Web Application Firewall），直接幫你把一些看起來很可疑的 payload 擋住。不過 WAF 也不是百分百有效，只是多一道防線而已。
+也可以考慮導入現成的 [WAF](https://www.cloudflare.com/zh-cn/learning/ddos/glossary/web-application-firewall-waf/)（Web Application Firewall），直接幫你把一些看起來很可疑的 payload 擋住。不過 WAF 也不是百分百有效，只是多一道防線而已。
 或是也可以關心一下這個比較新的東西：[Trusted Types](https://web.dev/trusted-types/)。
 
 ## 第二關：阻止惡意程式碼被執行

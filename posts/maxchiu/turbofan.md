@@ -3,7 +3,7 @@ title: 從編譯器優化角度初探 Javascript的V8 引擎
 date: 2021-04-07
 author: maxchiu
 description: 這篇文章想以V8引擎對於JS的實現為例來探討編譯器優化的一些基礎議題並搭配實驗，希望能讓讀者對於血汗的編譯器到底在背後幫我們完成了多少事情有點概念。
-layout: zh-tw/layouts/post.njk
+layout: zh-cn/layouts/post.njk
 tags: [Front-end, JavaScript]
 image: /img/DiveIntoTurbofan/1__NyZv46I1bYz4K7ngiT__W9Q.jpeg
 ---
@@ -152,7 +152,7 @@ V8 引擎目前所使用的 Optimizing Compiler叫做 [TurboFan](https://v8.dev/
 \[3\] Turbofan IR [https://docs.google.com/presentation/d/1Z9iIHojKDrXvZ27gRX51UxHD-bKf1QcPzSijntpMJBM/edit#slide=id.g19134d40cb\_0\_0](https://docs.google.com/presentation/d/1Z9iIHojKDrXvZ27gRX51UxHD-bKf1QcPzSijntpMJBM/edit#slide=id.g19134d40cb_0_0)
 
 \[4\] An Introduction to TurboFan  
- [https://www.mdeditor.tw/pl/po7T/zh-tw](https://www.mdeditor.tw/pl/po7T/zh-tw)
+ [https://www.mdeditor.tw/pl/po7T/zh-cn](https://www.mdeditor.tw/pl/po7T/zh-cn)
 
 \[5\] Deoptimization in V8 [https://docs.google.com/presentation/d/1Z6oCocRASCfTqGq1GCo1jbULDGS-w-nzxkbVF7Up0u0/edit#slide=id.g19ea708688\_0\_10](https://docs.google.com/presentation/d/1Z6oCocRASCfTqGq1GCo1jbULDGS-w-nzxkbVF7Up0u0/edit#slide=id.g19ea708688_0_10)
 

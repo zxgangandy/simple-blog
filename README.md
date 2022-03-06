@@ -1,8 +1,8 @@
-# Cymetrics 技術部落格
+# zxgangandy 技术博客
 
-網址：https://tech-blog.cymetrics.io/
+网址：https://zxgangandy.github.io/
 
-## 開發
+## 开发
 
 ```
 npm install
@@ -13,7 +13,7 @@ npm run watch
 
 只要把 code push 之後就會自動透過 GitHub actions 部署到 GitHub Pages。
 
-## 產生臉書預覽圖
+## 产生脸书预览图
 
 請執行以下指令，第一個參數帶你的作者 id，第二個帶文章檔名
 
@@ -21,18 +21,18 @@ npm run watch
 npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume"
 ```
 
-英文請在最後面加上 "en"
+英文请在最后面加上 "en"
 ```
 npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume" "en"
 ```
 
-跑完之後，可以在 `og-image-generator/cover.png` 找到你的圖片
+跑完之后，可以在 `og-image-generator/cover.png` 找到你的图片
 
 ## 該如何新增作者？
 
-每一個作者都會有個 unique 的 key 來識別，這邊假設 key 是 peter。
+每一個作者都会有个 unique 的 key 來识別，这里假设 key 是 peter。
 
-1. 把個人大頭貼放到 `img/authors` 裡面
+1. 把个人大头贴放到 `img/authors` 里面
 2. 打開 `_data/metadata.json`，在 `authors` 陣列裡面新增一個 object，格式可參考其他物件，key 是 `peter`
 3. 在 `posts/` 資料夾底下新增 `peter` 資料夾，並複製其他資料夾的 `index.njk`，內容會是作者的個人頁面，可自由客製化
 4. 在 `img/posts` 資料夾底下新增 `peter` 資料夾，文章的圖片可以放到這裡面
@@ -101,7 +101,7 @@ description: 這是一篇關於 Paged.js 的文章 // 選填
 
 css/main.css 所有的樣式都在裡面，有新增的都放在最下面
 
-## 參考資源
+## 参考资源
 
 1. [Eleventy Documentation](https://www.11ty.dev/docs/collections/)
 2. [Nunjucks 文件](https://mozilla.github.io/nunjucks/templating.html)

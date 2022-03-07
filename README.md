@@ -43,7 +43,7 @@ npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume" "en"
 
 1. 把 repo clone 下來
 2. 在 `posts/peter` 里面新增 markdown 文件，里面 frontmatter 格式请參考下面
-3. 完成之后 commit + push 就会触发部署流程，大约五分钟后可以在 production 上看到改动
+3. 完成之后 commit + push 就会触发部署流程，大约五分钟后可以在 production 上看到改动K
 
 ## 文章 frontmatter 格式
 

@@ -37,13 +37,13 @@ npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume" "en"
 3. 在 `posts/` 文件夹底下新增 `peter` 文件夹，并复制其它文件夹的 `index.njk`，內容会是作者的个人页面，可自由定制化
 4. 在 `img/posts` 文件夹底下新增 `peter` 文件夹，文章的图片可以放到这里面
 
-## 該如何發文？
+## 该如何发文？
 
-一樣假設作者的 key 是 `peter`
+一样假设作者的 key 是 `peter`
 
 1. 把 repo clone 下來
-2. 在 `posts/peter` 裡面新增 markdown 檔案，開頭 frontmatter 格式請參考下面
-3. 完成之後 commit + push 就會觸發部署流程，大約五分鐘後可以在 production 上看到改動
+2. 在 `posts/peter` 里面新增 markdown 文件，里面 frontmatter 格式请參考下面
+3. 完成之后 commit + push 就会触发部署流程，大约五分钟后可以在 production 上看到改动
 
 ## 文章 frontmatter 格式
 
@@ -82,7 +82,7 @@ description: 這是一篇關於 Paged.js 的文章 // 選填
 
 另外，`<!-- summary -->` 和 comment 標籤中的半形空白是必須的。
 
-## 多語系支援
+## 多语言支持
 
 目前支援兩個語系：中文跟英文
 
@@ -91,13 +91,13 @@ description: 這是一篇關於 Paged.js 的文章 // 選填
 英文文章請發表於 `en/posts/` 裡面，發表文章與中文相同
 
 
-## 如何客製化？
+## 如何定制化？
 
 ### 模板
 
 `_includes` 裡面都是 layout 相關的東西，請注意可能會牽一髮動全身，裡面主要會是各個頁面的 template。
 
-### 樣式
+### 样式
 
 css/main.css 所有的樣式都在裡面，有新增的都放在最下面
 

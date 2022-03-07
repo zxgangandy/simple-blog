@@ -15,7 +15,7 @@ npm run watch
 
 ## 产生脸书预览图
 
-請執行以下指令，第一個參數帶你的作者 id，第二個帶文章檔名
+请执行以下指令，第一個个参数带你的作者 id，第二个带文章名
 
 ```
 npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume"
@@ -28,14 +28,14 @@ npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume" "en"
 
 跑完之后，可以在 `og-image-generator/cover.png` 找到你的图片
 
-## 該如何新增作者？
+## 该如何新增作者？
 
-每一個作者都会有个 unique 的 key 來识別，这里假设 key 是 peter。
+每一个作者都会有个 unique 的 key 來识別，这里假设 key 是 peter。
 
 1. 把个人大头贴放到 `img/authors` 里面
-2. 打開 `_data/metadata.json`，在 `authors` 陣列裡面新增一個 object，格式可參考其他物件，key 是 `peter`
-3. 在 `posts/` 資料夾底下新增 `peter` 資料夾，並複製其他資料夾的 `index.njk`，內容會是作者的個人頁面，可自由客製化
-4. 在 `img/posts` 資料夾底下新增 `peter` 資料夾，文章的圖片可以放到這裡面
+2. 打开 `_data/metadata.json`，在 `authors` 列表里面新增一个 object，格式可参考其他，key 是 `peter`
+3. 在 `posts/` 文件夹底下新增 `peter` 文件夹，并复制其它文件夹的 `index.njk`，內容会是作者的个人页面，可自由定制化
+4. 在 `img/posts` 文件夹底下新增 `peter` 文件夹，文章的图片可以放到这里面
 
 ## 該如何發文？
 

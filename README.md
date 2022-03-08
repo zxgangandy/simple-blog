@@ -43,22 +43,22 @@ npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume" "en"
 
 1. 把 repo clone 下來
 2. 在 `posts/peter` 里面新增 markdown 文件，里面 frontmatter 格式请參考下面
-3. 完成之后 commit + push 就会触发部署流程，大约五分钟后可以在 production 上看到改动K
+3. 完成之后 commit + push 就会触发部署流程，大约五分钟后可以在 production 上看到改动
 
 ## 文章 frontmatter 格式
 
 ```
-title: 用 Paged.js 做出適合印成 PDF 的 HTML 網頁 // 標題
-date: 2018-09-30 // 發文日期
+title: 用 Paged.js 做出适合印成 PDF 的 HTML 網頁 // 标题
+date: 2018-09-30 // 发文日期
 tags: [Front-end, JavaScript] // 標籤
-author: huli // 作者 key
-layout: zh-cn/layouts/post.njk // 這固定不變
+author: zxgagnandy // 作者 key
+layout: zh-cn/layouts/post.njk // 這固定不变
 image: /img/posts/huli/test/cover.png // 選填，會當作預覽圖
 description: 這是一篇關於 Paged.js 的文章 // 選填
 ```
 
 ## 摘要功能
-使用一對 `<!-- summary -->` 可以選擇將一部分內容顯示在摘要區中。
+使用一对 `<!-- summary -->` 可以选择將一部分內容顯示在摘要區中。
 
 ```
 <!-- summary -->

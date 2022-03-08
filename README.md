@@ -48,13 +48,13 @@ npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume" "en"
 ## 文章 frontmatter 格式
 
 ```
-title: 用 Paged.js 做出适合印成 PDF 的 HTML 網頁 // 标题
+title: 用 Paged.js 做出适合印成 PDF 的 HTML 网页 // 标题
 date: 2018-09-30 // 发文日期
-tags: [Front-end, JavaScript] // 標籤
+tags: [Front-end, JavaScript] // 标签
 author: zxgagnandy // 作者 key
-layout: zh-cn/layouts/post.njk // 這固定不变
-image: /img/posts/huli/test/cover.png // 選填，會當作預覽圖
-description: 這是一篇關於 Paged.js 的文章 // 選填
+layout: zh-cn/layouts/post.njk // 这固定不变
+image: /img/posts/huli/test/cover.png // 选填，会当着预览图
+description: 這是一篇關於 Paged.js 的文章 // 选填
 ```
 
 ## 摘要功能
@@ -99,12 +99,12 @@ description: 這是一篇關於 Paged.js 的文章 // 選填
 
 ### 样式
 
-css/main.css 所有的樣式都在裡面，有新增的都放在最下面
+css/main.css 所有的样式都在李面，有新增的都放在最下面
 
 ## 参考资源
 
 1. [Eleventy Documentation](https://www.11ty.dev/docs/collections/)
 2. [Nunjucks 文件](https://mozilla.github.io/nunjucks/templating.html)
 
-此專案根據 [error-baker-blog](https://github.com/Lidemy/error-baker-blog) 以及 [eleventy-high-performance-blog](https://github.com/google/eleventy-high-performance-blog) 改寫而來
+此文根据 [error-baker-blog](https://github.com/Lidemy/error-baker-blog) 以及 [eleventy-high-performance-blog](https://github.com/google/eleventy-high-performance-blog) 改写而來
 

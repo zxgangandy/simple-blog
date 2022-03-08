@@ -11,11 +11,11 @@ npm run watch
 
 ## 部署
 
-只要把 code push 之後就會自動透過 GitHub actions 部署到 GitHub Pages。
+只要把 code push 之后就会自动通过 GitHub actions 部署到 GitHub Pages。
 
 ## 产生脸书预览图
 
-请执行以下指令，第一個个参数带你的作者 id，第二个带文章名
+请执行以下指令，第一个参数带你的作者 id，第二个带文章名
 
 ```
 npm run og-image -- "huli" "how-i-hacked-glints-and-your-resume"
@@ -54,11 +54,11 @@ tags: [Front-end, JavaScript] // 标签
 author: zxgagnandy // 作者 key
 layout: zh-cn/layouts/post.njk // 这固定不变
 image: /img/posts/huli/test/cover.png // 选填，会当着预览图
-description: 這是一篇關於 Paged.js 的文章 // 选填
+description: 這是一篇关于 Paged.js 的文章 // 选填
 ```
 
 ## 摘要功能
-使用一对 `<!-- summary -->` 可以选择將一部分內容顯示在摘要區中。
+使用一对 `<!-- summary -->` 可以选择將一部分內容显示在摘要区中。
 
 ```
 <!-- summary -->
@@ -70,36 +70,36 @@ description: 這是一篇關於 Paged.js 的文章 // 选填
 這邊不會出現在摘要裡面
 ```
 
-如果想要顯示的摘要的內容不在文章裡面，可以使用 comment 指定：
+如果想要显示的摘要的內容不在文章里面，可以使用 comment 指定：
 
 ```
 <!-- summary -->
-<!-- 我是會吸引人點進文章，但沒有整段出現在文章裡的摘要 -->
+<!-- 我是会吸引人贴进文章，但沒有整段出現在文章里的摘要 -->
 <!-- summary -->
 ```
 
-使用 comment 指定的摘要支援 HTML，例如`<code>`等。 結尾的 `-->` 目前不可省略。
+使用 comment 指定的摘要支援 HTML，例如`<code>`等。 结尾的 `-->` 目前不可省略。
 
-另外，`<!-- summary -->` 和 comment 標籤中的半形空白是必須的。
+另外，`<!-- summary -->` 和 comment 标签中的半形空白是必須的。
 
 ## 多语言支持
 
-目前支援兩個語系：中文跟英文
+目前支持两个语言：中文跟英文
 
-礙於原先沒有語系又不能做轉址，預設語系即為中文，英文的檔案都放置於 `en` 資料夾以及 `_includes/en` 裡面，要修改的時候必須兩份一起修改
+默认语言为中文，英文的文档都放置在 `en` 资料夾以及 `_includes/en` 里面，要修改的時候必須两份一起修改
 
-英文文章請發表於 `en/posts/` 裡面，發表文章與中文相同
+英文文章请发表在 `en/posts/` 里面，发表文章与中文相同
 
 
 ## 如何定制化？
 
 ### 模板
 
-`_includes` 裡面都是 layout 相關的東西，請注意可能會牽一髮動全身，裡面主要會是各個頁面的 template。
+`_includes` 里面都是 layout 相关的東西，请注意可能会牵一发动全身，里面主要会是各个頁面的 template。
 
 ### 样式
 
-css/main.css 所有的样式都在李面，有新增的都放在最下面
+css/main.css 所有的样式都在里面，有新增的都放在最下面
 
 ## 参考资源
 

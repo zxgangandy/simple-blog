@@ -1,7 +1,7 @@
 ---
 title: "跟端點防護軟體玩玩貓捉老鼠的遊戲 - Shellcode loader"
 date: 2022-03-01
-tags: [前端, malware, yara]
+tags: [shellcode, malware, yara]
 author: zxgangandy
 layout: zh-cn/layouts/post.njk
 image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png

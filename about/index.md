@@ -2,7 +2,7 @@
 layout: zh-cn/layouts/about.njk
 title: 关于
 eleventyNavigation:
-  key: About
+  key: 关于
   order: 3
 ---
 

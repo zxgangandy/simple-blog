@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 3
 ---
 
-[zxgangandy](https://zxgangandy.github.io) 是zxgangandy的个人技术博客 [GitHub](https://github.com/zxgangandy)。
+[这是](https://zxgangandy.github.io) 是zxgangandy的个人技术博客，更多请见 [GitHub](https://github.com/zxgangandy)。
 
 ### 作者列表
 

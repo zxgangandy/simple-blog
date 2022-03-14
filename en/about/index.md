@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 3
 ---
 
-The [zxgangandy](https://zxgangandy.github.io) is zxgangandy's technical blog [GitHub](https://github.com/zxgangandy)。
+The [blog](https://zxgangandy.github.io) is zxgangandy's technical blog. My [GitHub](https://github.com/zxgangandy)。
 ### Authors
 
 <!-- 底下交給 layout 來自動渲染 -->

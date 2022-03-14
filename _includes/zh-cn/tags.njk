@@ -1,5 +1,5 @@
 <div class="tag-list">
-  {% set allowTags = ['前端', '后端', '算法'] %}
+  {% set allowTags = ['Front-end', 'Back-end', 'Security'] %}
   {% for tag in collections.tagList %}
     {% if tag in allowTags %}
       {% set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}

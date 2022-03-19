@@ -8,13 +8,7 @@ image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png
 ---
 
 <!-- summary -->
-在資安世界的紅藍對抗像極了貓捉老鼠遊戲
-
-**紅隊** 研究新穎攻擊手法，開發新工具，繞過偵測，長期維持權限
-
-**藍隊** 研究偵測手法，從中偵測阻擋，從偵測點串起整個攻擊鏈
-
-今天來玩玩 malware 針對端點防護軟體會用的一些手法，做個基於 direct system call 的 uuid shellcode loader
+在我们的日常业务开发中，通常需要对一些数据做唯一标识，例如为大量抓取的文章入库时分配一个唯一的id，为用户下的订单分配订单号等等。并发量小的时候，通常会使用数据库自增的主键id作为唯一id。并发量大、存在分库分表的情况或者是在微服务系统中我们通常会考虑使用分布式ID的生成方案来生成id。所以这里给大家分享一些常见的分布式id生成算法。
 <!-- summary -->
 
 UUID Shellcode 早在 2017 年就有被研究員提出，在 2021 年 NCCGroup 發表了 [Lazarus APT Group](https://research.nccgroup.com/2021/01/23/rift-analysing-a-lazarus-shellcode-execution-method/) 使用 UUID Shellcode 的相關技術，之後更衍伸出 ipv6 與 mac address 格式的 shellcode

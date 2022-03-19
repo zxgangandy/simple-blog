@@ -9,7 +9,7 @@
     </div>
     <div class="post-info">
       <div class="post-read-more">
-        <a href="{{ post.url | url }}">Continue Reading</a>
+        <a href="{{ post.url | url }}">继续阅读</a>
       </div>
       <div class="post-footer">
         <a href="/posts/{{ post.data.author }}" class="author-link">
@@ -17,7 +17,7 @@
           <span class="post-author">{{ author.name }}</span>
         </a> on <time class="post-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | htmlDateString }}</time>
       </div>
-      
+
     </div>
   </div>
 {% endfor %}

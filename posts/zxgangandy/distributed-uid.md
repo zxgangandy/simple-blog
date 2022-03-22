@@ -29,7 +29,7 @@ image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png
 - 百度 （Uidgenerator）
 - 美团（Leaf）
 
-### 1. UUDI
+### 1. UUID
 通用唯一识别码（Universally Unique Identifier，缩写：UUID）是用于计算机体系中以识别信息数目的一个128位标识符，也就是可以通过16个字节来表示。
 UUID 由开放软件基金会（OSF）标准化，作为分布式计算环境（DCE）的一部分。
 UUID的标准型式包含32个16进位数字，以连字号分为五段，形式为8-4-4-4-12的32个字元。范例：550e8400-e29b-41d4-a716-446655440000

@@ -129,9 +129,10 @@ version ：是一个乐观锁，每次都更新version，保证并发时数据�
 update id_generator set max_id = #{max_id+step}, version = version + 1 where version = # {version} and biz_type = XXX
 由于多业务端可能同时操作，所以采用版本号version乐观锁方式更新，这种分布式ID生成方式不强依赖于数据库，不会频繁的访问数据库，对数据库的压力小很多。
 
-#### 优点：避免了每次生成ID都要访问数据库并带来压力，提高性能
-#### 缺点：属于本地生成策略，存在单点故障，服务重启造成ID不连续
-
+#### 优点：
+避免了每次生成ID都要访问数据库并带来压力，提高性能
+#### 缺点：
+属于本地生成策略，存在单点故障，服务重启造成ID不连续
 
 ## References
 - https://zhuanlan.zhihu.com/p/107939861

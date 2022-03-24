@@ -61,7 +61,7 @@ xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
 - 占用空间太多(16个字节), MySQL官方有明确的建议主键要尽量越短越好，36个字符长度的UUID不符合要求。 
 - 影响数据库的性能,对MySQL索引不利, 比如[UUID or GUID as Primary Keys? Be Careful!](https://tomharrisonjr.com/uuid-or-guid-as-primary-keys-be-careful-7b2aa3dcb439)
 
-## 2.基于数据库自增ID
+### 2.基于数据库自增ID
 基于数据库的auto_increment自增ID完全可以充当分布式ID，具体实现：需要一个单独的MySQL实例用来生成ID，建表结构如下：
 ```sql
 CREATE DATABASE `SEQ_ID`;
@@ -81,7 +81,7 @@ insert into SEQUENCE_ID(value)  VALUES ('values');
 DB单点存在宕机风险，无法扛住高并发场景，这种方式访问量激增时MySQL本身就是系统的瓶颈，用它来实现分布式服务风险比较大。
 如果公开（显示在页面或 URL 的一部分上），它可能会泄露商业智能数据。例如，如果我现在订购了一个ID为345的订单，而我在一个月后订购了一个ID为445 的订单，那么我可以推断该商店每月收到大约100个订单。
 
-## 3.基于数据库集群模式
+### 3.基于数据库集群模式
 上面说了单点数据库方式不可取，那对上边的方式做一些高可用优化，换成主从模式集群。害怕一个主节点挂掉没法用，那就做双主模式集群，也就是两个Mysql实例都能单独的生产自增ID。
 那这样还会有个问题，两个MySQL实例的自增ID都从1开始，会生成重复的ID怎么办？
 解决方案：设置起始值和自增步长
@@ -107,6 +107,30 @@ set @@auto_increment_increment = 2;  -- 步长
 解决DB单点问题
 #### 缺点：
 不利于后续扩容，而且实际上单个数据库自身压力还是大，依旧无法满足高并发场景。
+
+### 4.号段模式
+号段模式是当下分布式ID生成器的主流实现方式之一，号段模式可以理解为从数据库批量的获取自增ID，每次从数据库取出一个号段范围，例如 (1,1000] 代表1000个ID，具体的业务服务将本号段，生成1~1000的自增ID并加载到内存。
+表结构如下：
+```sql
+CREATE TABLE id_generator (
+  id int(10) NOT NULL,
+  max_id bigint(20) NOT NULL COMMENT '当前最大id',
+  step int(20) NOT NULL COMMENT '号段的布长',
+  biz_type	int(20) NOT NULL COMMENT '业务类型',
+  version int(20) NOT NULL COMMENT '版本号',
+  PRIMARY KEY (`id`)
+) 
+```
+biz_type ：代表不同业务类型
+max_id ：当前最大的可用id
+step ：代表号段的长度
+version ：是一个乐观锁，每次都更新version，保证并发时数据的正确性
+等这批号段ID用完，再次向数据库申请新号段，对max_id字段做一次update操作，update max_id= max_id + step，update成功则说明新号段获取成功，新的号段范围是(max_id ,max_id +step]。
+update id_generator set max_id = #{max_id+step}, version = version + 1 where version = # {version} and biz_type = XXX
+由于多业务端可能同时操作，所以采用版本号version乐观锁方式更新，这种分布式ID生成方式不强依赖于数据库，不会频繁的访问数据库，对数据库的压力小很多。
+
+#### 优点：避免了每次生成ID都要访问数据库并带来压力，提高性能
+#### 缺点：属于本地生成策略，存在单点故障，服务重启造成ID不连续
 
 
 ## References

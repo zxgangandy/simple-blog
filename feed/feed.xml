@@ -7579,9 +7579,9 @@ More than a simple DNS lookup this tool will discover those hard to find sub-dom
 &lt;li&gt;微博ID&lt;/li&gt;
 &lt;li&gt;聊天消息ID&lt;/li&gt;
 &lt;li&gt;帖子ID&lt;/li&gt;
-&lt;li&gt;订单ID&lt;br&gt;
-通常会使用数据库自增的主键id作为唯一id。但是在并发量大、存在分库分表的情况或者是在微服务系统中我们通常会考虑使用分布式ID的生成方案来生成id。如果是小型应用，或者是业务量不大的情况下，单库单表完全可以支撑现有业务，数据再大一点搞个MySQL主从同步读写分离也能解决。此种情况不属于这里讨论的范畴。&lt;/li&gt;
+&lt;li&gt;订单ID&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;通常会使用数据库自增的主键id作为唯一id。但是在并发量大、存在分库分表的情况或者是在微服务系统中我们通常会考虑使用分布式ID的生成方案来生成id。如果是小型应用，或者是业务量不大的情况下，单库单表完全可以支撑现有业务，数据再大一点搞个MySQL主从同步读写分离也能解决。此种情况不属于这里讨论的范畴。&lt;/p&gt;
 &lt;!-- summary --&gt;
 &lt;h2 id=&quot;%E5%88%86%E5%B8%83%E5%BC%8Fid%E7%9A%84%E7%89%B9%E7%82%B9&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%88%86%E5%B8%83%E5%BC%8Fid%E7%9A%84%E7%89%B9%E7%82%B9&quot;&gt;#&lt;/a&gt; 分布式ID的特点&lt;/h2&gt;
 &lt;ul&gt;

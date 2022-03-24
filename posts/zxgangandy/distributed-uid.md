@@ -125,6 +125,25 @@ update id_generator set max_id = #{max_id+step}, version = version + 1 where ver
 #### 缺点：
 属于本地生成策略，存在单点故障，服务重启造成ID不连续
 
+### 5.基于Redis模式
+Redis通过利用redis的 incr命令实现ID的原子性自增。
+```sql  
+    127.0.0.1:6379> set seq_id 1     // 初始化自增ID为1
+    OK
+    127.0.0.1:6379> incr seq_id      // 增加1，并返回递增后的数值
+    (integer) 2
+```
+用redis实现需要注意一点，要考虑到redis持久化的问题。redis有两种持久化方式RDB和AOF
+RDB会定时打一个快照进行持久化，假如连续自增但redis没及时持久化，而这会Redis挂掉了，重启Redis后会出现ID重复的情况。
+AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID重复的情况，但由于incr命令的特殊性，会导致Redis重启恢复的数据时间过长。
+#### 优点：
+性能比数据库好，能满足有序递增。
+#### 缺点：
+由于redis是内存的KV数据库，即使有AOF和RDB，但是依然会存在数据丢失，有可能会造成ID重复。
+依赖于redis，redis要是不稳定，会影响ID生成。
+
+适用：由于其性能比数据库好，但是有可能会出现ID重复和不稳定，这一块如果可以接受那么就可以使用。也适用于到了某个时间，比如每天都刷新ID，那么这个ID就需要重置，通过(Incr Today)，每天都会从0开始加。
+
 ## References
 - https://zhuanlan.zhihu.com/p/107939861
 - https://tech.meituan.com/2017/04/21/mt-leaf.html

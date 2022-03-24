@@ -7662,6 +7662,18 @@ update id_generator set max_id = #{max_id+step}, version = version + 1 where ver
 &lt;p&gt;避免了每次生成ID都要访问数据库并带来压力，提高性能&lt;/p&gt;
 &lt;h4 id=&quot;%E7%BC%BA%E7%82%B9%EF%BC%9A-3&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E7%BC%BA%E7%82%B9%EF%BC%9A-3&quot;&gt;#&lt;/a&gt; 缺点：&lt;/h4&gt;
 &lt;p&gt;属于本地生成策略，存在单点故障，服务重启造成ID不连续&lt;/p&gt;
+&lt;h3 id=&quot;5.%E5%9F%BA%E4%BA%8Eredis%E6%A8%A1%E5%BC%8F&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#5.%E5%9F%BA%E4%BA%8Eredis%E6%A8%A1%E5%BC%8F&quot;&gt;#&lt;/a&gt; 5.基于Redis模式&lt;/h3&gt;
+&lt;p&gt;Redis通过利用redis的 incr命令实现ID的原子性自增。&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;    &lt;span class=&quot;token number&quot;&gt;127.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.1&lt;/span&gt;:&lt;span class=&quot;token number&quot;&gt;6379&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt; seq_id &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;token comment&quot;&gt;// 初始化自增ID为1&lt;/span&gt;&lt;br&gt;    OK&lt;br&gt;    &lt;span class=&quot;token number&quot;&gt;127.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.1&lt;/span&gt;:&lt;span class=&quot;token number&quot;&gt;6379&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; incr seq_id      &lt;span class=&quot;token comment&quot;&gt;// 增加1，并返回递增后的数值&lt;/span&gt;&lt;br&gt;    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;integer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;用redis实现需要注意一点，要考虑到redis持久化的问题。redis有两种持久化方式RDB和AOF&lt;br&gt;
+RDB会定时打一个快照进行持久化，假如连续自增但redis没及时持久化，而这会Redis挂掉了，重启Redis后会出现ID重复的情况。&lt;br&gt;
+AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID重复的情况，但由于incr命令的特殊性，会导致Redis重启恢复的数据时间过长。&lt;/p&gt;
+&lt;h4 id=&quot;%E4%BC%98%E7%82%B9%EF%BC%9A-4&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E4%BC%98%E7%82%B9%EF%BC%9A-4&quot;&gt;#&lt;/a&gt; 优点：&lt;/h4&gt;
+&lt;p&gt;性能比数据库好，能满足有序递增。&lt;/p&gt;
+&lt;h4 id=&quot;%E7%BC%BA%E7%82%B9%EF%BC%9A-4&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E7%BC%BA%E7%82%B9%EF%BC%9A-4&quot;&gt;#&lt;/a&gt; 缺点：&lt;/h4&gt;
+&lt;p&gt;由于redis是内存的KV数据库，即使有AOF和RDB，但是依然会存在数据丢失，有可能会造成ID重复。&lt;br&gt;
+依赖于redis，redis要是不稳定，会影响ID生成。&lt;/p&gt;
+&lt;p&gt;适用：由于其性能比数据库好，但是有可能会出现ID重复和不稳定，这一块如果可以接受那么就可以使用。也适用于到了某个时间，比如每天都刷新ID，那么这个ID就需要重置，通过(Incr Today)，每天都会从0开始加。&lt;/p&gt;
 &lt;h2 id=&quot;references&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#references&quot;&gt;#&lt;/a&gt; References&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/107939861&quot;&gt;https://zhuanlan.zhihu.com/p/107939861&lt;/a&gt;&lt;/li&gt;

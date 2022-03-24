@@ -26,7 +26,6 @@ image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png
 - 尽可能短：位数更短的ID在查询和存储等方面都有优势，为高性能提供基础保障
 
 ## 常见的分布式ID算法
-
 - UUID
 - 数据库自增ID
 - 数据库多主模式

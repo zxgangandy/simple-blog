@@ -50,7 +50,7 @@ templateClass: tmpl-post
 
     {% endfor %}
   </div>
-  <p style="font-weight: bold;">Recommendation</p>
+  <p style="font-weight: bold;">推荐</p>
   <ol>
     {%- for entry in collections.posts | recommendation(title) | randomPick(5) | reverse %}
       <li><a href="{{ entry.url | url }}">{{ entry.data.title }}</a></li>

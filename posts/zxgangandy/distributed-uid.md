@@ -40,19 +40,16 @@ image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png
 ### 1. UUID
 通用唯一识别码（Universally Unique Identifier，缩写：UUID）是用于计算机体系中以识别信息数目的全球唯一的一个128位标识符。
 更详细的信息可以参考[wikipedia](https://en.wikipedia.org/wiki/Universally_unique_identifier)和[RFC](https://tools.ietf.org/html/rfc4122)文档。
-
 #### 优点:
 - 容易实现，产生快
 - ID唯一(几乎不会产生重复id)
 - 无需中心化的服务器，本地生成，没有网络消耗
 - 不会泄漏商业机密
-
 #### 缺点:
 - 可读性差
 - 不容易存储
 - 占用空间太多(16个字节), MySQL官方有明确的建议主键要尽量越短越好，36个字符长度的UUID不符合要求。 
-- 影响数据库的性能,对MySQL索引不利, 比如[UUID or GUID as Primary Keys? Be Careful!](https://tomharrisonjr.com/uuid-or-guid-as-primary-keys-be-careful-7b2aa3dcb439)
-
+- 影响数据库的性能,不利于MySQL索引
 ### 2.基于数据库自增ID
 基于数据库的auto_increment自增ID完全可以充当分布式ID，具体实现：需要一个单独的MySQL实例用来生成ID，建表结构如下：
 ```sql
@@ -77,7 +74,6 @@ DB单点存在宕机风险，无法扛住高并发场景，这种方式访问量
 上面说了单点数据库方式不可取，那对上边的方式做一些高可用优化，换成主从模式集群。害怕一个主节点挂掉没法用，那就做双主模式集群，也就是两个Mysql实例都能单独的生产自增ID。
 那这样还会有个问题，两个MySQL实例的自增ID都从1开始，会生成重复的ID怎么办？
 解决方案：设置起始值和自增步长
-
 MySQL_1 配置：
 ```sql
 set @@auto_increment_offset = 1;     -- 起始值
@@ -90,16 +86,13 @@ set @@auto_increment_increment = 2;  -- 步长
 ```
 这样两个MySQL实例的自增ID分别就是：
 1、3、5、7、9 2、4、6、8、10
-
 如果系统对性能和高并发有更高的要求就需要对MySQL扩容增加节点，这是一个比较麻烦的事。
 水平扩展的数据库集群，有利于解决数据库单点压力的问题，同时为了ID生成特性，将自增步长按照机器数量来设置。
 增加第三台MySQL实例需要人工修改一、二两台MySQL实例的起始值和步长，把第三台机器的ID起始生成位置设定在比现有最大自增ID的位置远一些，但必须在一、二两台MySQL实例ID还没有增长到第三台MySQL实例的起始ID值的时候，否则自增ID就要出现重复了，必要时可能还需要停机修改。
-
 #### 优点：
 解决DB单点问题
 #### 缺点：
 不利于后续扩容，而且实际上单个数据库自身压力还是大，依旧无法满足高并发场景。
-
 ### 4.号段模式
 号段模式是当下分布式ID生成器的主流实现方式之一，号段模式可以理解为从数据库批量的获取自增ID，每次从数据库取出一个号段范围，例如 (1,1000] 代表1000个ID，具体的业务服务将本号段，生成1~1000的自增ID并加载到内存。
 表结构如下：
@@ -120,12 +113,10 @@ version ：是一个乐观锁，每次都更新version，保证并发时数据�
 等这批号段ID用完，再次向数据库申请新号段，对max_id字段做一次update操作，update max_id= max_id + step，update成功则说明新号段获取成功，新的号段范围是(max_id ,max_id +step]。
 update id_generator set max_id = #{max_id+step}, version = version + 1 where version = # {version} and biz_type = XXX
 由于多业务端可能同时操作，所以采用版本号version乐观锁方式更新，这种分布式ID生成方式不强依赖于数据库，不会频繁的访问数据库，对数据库的压力小很多。
-
 #### 优点：
 避免了每次生成ID都要访问数据库并带来压力，提高性能
 #### 缺点：
 属于本地生成策略，存在单点故障，服务重启造成ID不连续
-
 ### 5.基于Redis模式
 Redis通过利用redis的 incr命令实现ID的原子性自增。
 ```sql  

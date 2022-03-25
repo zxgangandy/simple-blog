@@ -7693,6 +7693,7 @@ Snowflake生成的是Long类型的ID，一个Long类型占8个字节，每个字
 &lt;h4 id=&quot;%E7%BC%BA%E7%82%B9%EF%BC%9A-5&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E7%BC%BA%E7%82%B9%EF%BC%9A-5&quot;&gt;#&lt;/a&gt; 缺点：&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。&lt;/li&gt;
+&lt;li&gt;ID生成有规律性,信息容易泄漏&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;references&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#references&quot;&gt;#&lt;/a&gt; References&lt;/h2&gt;
 &lt;ul&gt;

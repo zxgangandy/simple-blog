@@ -246,8 +246,7 @@ public class SnowFlake {
 - 性能好，可以中心化的产生ID,也可以独立节点生成
 #### 缺点：
 - 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
-
-
+- ID生成有规律性,信息容易泄漏
 ## References
 - https://zhuanlan.zhihu.com/p/107939861
 - https://tech.meituan.com/2017/04/21/mt-leaf.html

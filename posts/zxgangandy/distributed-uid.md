@@ -33,9 +33,6 @@ image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png
 - 号段模式
 - Redis
 - 雪花算法（SnowFlake）
-- 滴滴出品（TinyID）
-- 百度 （Uidgenerator）
-- 美团（Leaf）
 
 ### 1. UUID
 通用唯一识别码（Universally Unique Identifier，缩写：UUID）是用于计算机体系中以识别信息数目的全球唯一的一个128位标识符。
@@ -135,6 +132,121 @@ AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID�
 依赖于redis，redis要是不稳定，会影响ID生成。
 
 适用：由于其性能比数据库好，但是有可能会出现ID重复和不稳定，这一块如果可以接受那么就可以使用。也适用于到了某个时间，比如每天都刷新ID，那么这个ID就需要重置，通过(Incr Today)，每天都会从0开始加。
+### 6.基于雪花算法（Snowflake）模式
+雪花算法（Snowflake）是twitter公司内部分布式项目采用的ID生成算法。
+Snowflake生成的是Long类型的ID，一个Long类型占8个字节，每个字节占8比特，也就是说一个Long类型占64个比特。
+
+Snowflake ID组成结构：正数位（占1比特）+ 时间戳（占41比特）+ 机器ID（占5比特）+ 数据中心（占5比特）+ 自增值（占12比特），总共64比特组成的一个Long类型。
+
+第一个bit位（1bit）：Java中long的最高位是符号位代表正负，正数是0，负数是1，一般生成ID都为正数，所以默认为0。
+时间戳部分（41bit）：毫秒级的时间，不建议存当前时间戳，而是用（当前时间戳 - 固定开始时间戳）的差值，可以使产生的ID从更小的值开始；41位的时间戳可以使用69年，(1L << 41) / (1000L * 60 * 60 * 24 * 365) = 69年
+工作机器id（10bit）：也被叫做workId，这个可以灵活配置，机房或者机器号组合都可以。
+序列号部分（12bit），自增值支持同一毫秒内同一个节点可以生成4096个ID
+根据这个算法的逻辑，只需要将这个算法用Java语言实现出来，封装为一个工具方法，那么各个业务应用可以直接使用该工具方法来获取分布式ID，只需保证每个业务应用有自己的工作机器id即可，而不需要单独去搭建一个获取分布式ID的应用。
+
+Java版本的Snowflake算法简单实现：
+```java
+public class SnowFlake {
+
+    /**
+     * 起始的时间戳
+     */
+    private final static long START_TIMESTAMP = 1480166465631L;
+
+    /**
+     * 每一部分占用的位数
+     */
+    private final static long SEQUENCE_BIT = 12;   //序列号占用的位数
+    private final static long MACHINE_BIT = 5;     //机器标识占用的位数
+    private final static long DATA_CENTER_BIT = 5; //数据中心占用的位数
+
+    /**
+     * 每一部分的最大值
+     */
+    private final static long MAX_SEQUENCE = -1L ^ (-1L << SEQUENCE_BIT);
+    private final static long MAX_MACHINE_NUM = -1L ^ (-1L << MACHINE_BIT);
+    private final static long MAX_DATA_CENTER_NUM = -1L ^ (-1L << DATA_CENTER_BIT);
+
+    /**
+     * 每一部分向左的位移
+     */
+    private final static long MACHINE_LEFT = SEQUENCE_BIT;
+    private final static long DATA_CENTER_LEFT = SEQUENCE_BIT + MACHINE_BIT;
+    private final static long TIMESTAMP_LEFT = DATA_CENTER_LEFT + DATA_CENTER_BIT;
+
+    private long dataCenterId;  //数据中心
+    private long machineId;     //机器标识
+    private long sequence = 0L; //序列号
+    private long lastTimeStamp = -1L;  //上一次时间戳
+
+    private long getNextMill() {
+        long mill = getNewTimeStamp();
+        while (mill <= lastTimeStamp) {
+            mill = getNewTimeStamp();
+        }
+        return mill;
+    }
+
+    private long getNewTimeStamp() {
+        return System.currentTimeMillis();
+    }
+
+    public SnowFlakeShortUrl(long dataCenterId, long machineId) {
+        if (dataCenterId > MAX_DATA_CENTER_NUM || dataCenterId < 0) {
+            throw new IllegalArgumentException("DtaCenterId can't be greater than MAX_DATA_CENTER_NUM or less than 0！");
+        }
+        if (machineId > MAX_MACHINE_NUM || machineId < 0) {
+            throw new IllegalArgumentException("MachineId can't be greater than MAX_MACHINE_NUM or less than 0！");
+        }
+        this.dataCenterId = dataCenterId;
+        this.machineId = machineId;
+    }
+
+    
+    public synchronized long nextId() {
+        long currTimeStamp = getNewTimeStamp();
+        if (currTimeStamp < lastTimeStamp) {
+            throw new RuntimeException("Clock moved backwards.  Refusing to generate id");
+        }
+
+        if (currTimeStamp == lastTimeStamp) {
+            //相同毫秒内，序列号自增
+            sequence = (sequence + 1) & MAX_SEQUENCE;
+            //同一毫秒的序列数已经达到最大
+            if (sequence == 0L) {
+                currTimeStamp = getNextMill();
+            }
+        } else {
+            //不同毫秒内，序列号置为0
+            sequence = 0L;
+        }
+
+        lastTimeStamp = currTimeStamp;
+
+        return (currTimeStamp - START_TIMESTAMP) << TIMESTAMP_LEFT //时间戳部分
+                | dataCenterId << DATA_CENTER_LEFT       //数据中心部分
+                | machineId << MACHINE_LEFT             //机器标识部分
+                | sequence;                             //序列号部分
+    }
+    
+    public static void main(String[] args) {
+        SnowFlake snowFlake = new SnowFlake(2, 3);
+
+        for (int i = 0; i < (1 << 4); i++) {
+            System.out.println(snowFlake.nextId());
+        }
+    }
+}
+```
+#### 优点：
+- 毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。
+- 可以根据自身业务特性分配bit位，非常灵活。
+- 存储少, 8个字节
+- 可读性高
+- 性能好，可以中心化的产生ID,也可以独立节点生成
+#### 缺点：
+- 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
+
 
 ## References
 - https://zhuanlan.zhihu.com/p/107939861

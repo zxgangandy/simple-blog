@@ -45,7 +45,7 @@ image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png
 #### 缺点:
 - 可读性差
 - 不容易存储
-- 占用空间太多(16个字节), MySQL官方有明确的建议主键要尽量越短越好，36个字符长度的UUID不符合要求。 
+- 占用空间太多(16个字节)，不符合MySQL官方主键要尽量越短越好的建议 
 - 影响数据库的性能,不利于MySQL索引
 ### 2.基于数据库自增ID
 基于数据库的auto_increment自增ID完全可以充当分布式ID，具体实现：需要一个单独的MySQL实例用来生成ID，建表结构如下：

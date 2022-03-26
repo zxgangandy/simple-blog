@@ -7630,7 +7630,7 @@ More than a simple DNS lookup this tool will discover those hard to find sub-dom
 &lt;h4 id=&quot;%E7%BC%BA%E7%82%B9%EF%BC%9A&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E7%BC%BA%E7%82%B9%EF%BC%9A&quot;&gt;#&lt;/a&gt; 缺点：&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;DB单点存在宕机风险，无法扛住高并发场景&lt;/li&gt;
-&lt;li&gt;这种方式访问量激增时MySQL本身就是系统的瓶颈，用它来实现分布式服务风险比较大&lt;/li&gt;
+&lt;li&gt;这种方式访问量激增时MySQL本身就是系统的瓶颈&lt;/li&gt;
 &lt;li&gt;ID有安全隐患，可能会泄露商业智能数据。例如，如果我现在订购了一个ID为123的订单，而我在一个月后订购了一个ID为223的订单，那么我可以推断该商店每月收到大约100个订单&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&quot;3.%E5%9F%BA%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#3.%E5%9F%BA%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F&quot;&gt;#&lt;/a&gt; 3.基于数据库集群模式&lt;/h3&gt;

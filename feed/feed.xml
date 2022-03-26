@@ -7614,7 +7614,7 @@ More than a simple DNS lookup this tool will discover those hard to find sub-dom
 &lt;ul&gt;
 &lt;li&gt;可读性差&lt;/li&gt;
 &lt;li&gt;不容易存储&lt;/li&gt;
-&lt;li&gt;占用空间太多(16个字节), MySQL官方有明确的建议主键要尽量越短越好，36个字符长度的UUID不符合要求。&lt;/li&gt;
+&lt;li&gt;占用空间太多(16个字节)，不符合MySQL官方主键要尽量越短越好的建议&lt;/li&gt;
 &lt;li&gt;影响数据库的性能,不利于MySQL索引&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&quot;2.%E5%9F%BA%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%A2%9Eid&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#2.%E5%9F%BA%E4%BA%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%A2%9Eid&quot;&gt;#&lt;/a&gt; 2.基于数据库自增ID&lt;/h3&gt;

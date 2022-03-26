@@ -83,11 +83,8 @@ MySQL_2 配置：
 set @@auto_increment_offset = 2;     -- 起始值
 set @@auto_increment_increment = 2;  -- 步长
 ```
-这样两个MySQL实例的自增ID分别就是：
-1、3、5、7、9 2、4、6、8、10
-如果系统对性能和高并发有更高的要求就需要对MySQL扩容增加节点，这是一个比较麻烦的事。
-水平扩展的数据库集群，有利于解决数据库单点压力的问题，同时为了ID生成特性，将自增步长按照机器数量来设置。
-增加第三台MySQL实例需要人工修改一、二两台MySQL实例的起始值和步长，把第三台机器的ID起始生成位置设定在比现有最大自增ID的位置远一些，但必须在一、二两台MySQL实例ID还没有增长到第三台MySQL实例的起始ID值的时候，否则自增ID就要出现重复了，必要时可能还需要停机修改。
+这样两个MySQL实例的自增ID分别就是：1、3、5、7、9 2、4、6、8、10
+如果系统对性能和高并发有更高的要求就需要对MySQL扩容增加节点，这是一个比较麻烦的事。水平扩展的数据库集群，有利于解决数据库单点压力的问题，同时为了ID生成特性，将自增步长按照机器数量来设置。增加第三台MySQL实例需要人工修改一、二两台MySQL实例的起始值和步长，把第三台机器的ID起始生成位置设定在比现有最大自增ID的位置远一些，但必须在一、二两台MySQL实例ID还没有增长到第三台MySQL实例的起始ID值的时候，否则自增ID就要出现重复了，必要时可能还需要停机修改。
 #### 优点：
 - 解决DB单点问题
 - 简单
@@ -113,9 +110,7 @@ biz_type ：代表不同业务类型
 max_id ：当前最大的可用id
 step ：代表号段的长度
 version ：是一个乐观锁，每次都更新version，保证并发时数据的正确性
-等这批号段ID用完，再次向数据库申请新号段，对max_id字段做一次update操作，update max_id= max_id + step，update成功则说明新号段获取成功，新的号段范围是(max_id ,max_id +step]。
-update id_generator set max_id = #{max_id+step}, version = version + 1 where version = # {version} and biz_type = XXX
-由于多业务端可能同时操作，所以采用版本号version乐观锁方式更新，这种分布式ID生成方式不强依赖于数据库，不会频繁的访问数据库，对数据库的压力小很多。
+等这批号段ID用完，再次向数据库申请新号段，对max_id字段做一次update操作，update max_id= max_id + step，update成功则说明新号段获取成功，新的号段范围是(max_id ,max_id +step]。update id_generator set max_id = #{max_id+step}, version = version + 1 where version = # {version} and biz_type = XXX。由于多业务端可能同时操作，所以采用版本号version乐观锁方式更新，这种分布式ID生成方式不强依赖于数据库，不会频繁的访问数据库，对数据库的压力小很多。
 #### 优点：
 - 避免了每次生成ID都要访问数据库并带来压力，提高了性能
 #### 缺点：
@@ -128,14 +123,12 @@ Redis通过利用redis的 incr命令实现ID的原子性自增。
     127.0.0.1:6379> incr seq_id      // 增加1，并返回递增后的数值
     (integer) 2
 ```
-用redis实现需要注意一点，要考虑到redis持久化的问题。redis有两种持久化方式RDB和AOF
-RDB会定时打一个快照进行持久化，假如连续自增但redis没及时持久化，而这会Redis挂掉了，重启Redis后会出现ID重复的情况。
-AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID重复的情况，但由于incr命令的特殊性，会导致Redis重启恢复的数据时间过长。
+用redis实现需要注意一点，要考虑到redis持久化的问题。redis有两种持久化方式RDB和AOF。RDB会定时打一个快照进行持久化，假如连续自增但redis没及时持久化，而这会Redis挂掉了，重启Redis后会出现ID重复的情况。AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID重复的情况，但由于incr命令的特殊性，会导致Redis重启恢复的数据时间过长。
 #### 优点：
 - 性能比数据库好，能满足有序递增。
 #### 缺点：
 - 由于redis是内存的KV数据库，即使有AOF和RDB，但是依然会存在数据丢失，有可能会造成ID重复。
-依赖于redis，redis要是不稳定，会影响ID生成。
+- 依赖于redis，redis要是不稳定，会影响ID生成。
 
 适用：由于其性能比数据库好，但是有可能会出现ID重复和不稳定，这一块如果可以接受那么就可以使用。也适用于到了某个时间，比如每天都刷新ID，那么这个ID就需要重置，通过(Incr Today)，每天都会从0开始加。
 ### 6.基于雪花算法（Snowflake）模式

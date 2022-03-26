@@ -200,7 +200,6 @@ public class SnowFlake {
         this.machineId = machineId;
     }
 
-    
     public synchronized long nextId() {
         long currTimeStamp = getNewTimeStamp();
         if (currTimeStamp < lastTimeStamp) {

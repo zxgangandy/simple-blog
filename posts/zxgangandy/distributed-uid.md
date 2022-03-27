@@ -1,7 +1,7 @@
 ---
 title: "分布式ID"
 date: 2022-03-18
-tags: [distributed, uid, id, micro-service]
+tags: [Back-end, distributed, uid, id, micro-service]
 author: zxgangandy
 layout: zh-cn/layouts/post.njk
 image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png

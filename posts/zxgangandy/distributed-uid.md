@@ -249,10 +249,13 @@ public class SnowFlake {
 ## 具体案例
 ### 百度（uid-generator）
 - https://github.com/baidu/uid-generator
+- uid-generator是基于Snowflake算法实现的，与原始的snowflake算法不同在于，uid-generator支持自定义时间戳、工作机器ID和 序列号 等各部分的位数，而且uid-generator中采用用户自定义workId的生成策略。uid-generator需要与数据库配合使用，需要新增一个WORKER_NODE表。当应用启动时会向数据库表中去插入一条数据，插入成功后返回的自增ID就是该机器的workId数据由host，port组成。
 ### 美团（Leaf）
 - https://github.com/Meituan-Dianping/Leaf
+- Leaf同时支持号段模式和snowflake算法模式，可以切换使用
 ### 滴滴（Tinyid）
 - https://github.com/didi/tinyid
+- Tinyid是基于号段模式原理实现
 
 ## References
 - https://zhuanlan.zhihu.com/p/107939861

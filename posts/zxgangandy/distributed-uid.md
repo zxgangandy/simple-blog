@@ -245,6 +245,15 @@ public class SnowFlake {
 #### 缺点：
 - 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务不可用
 - ID生成有规律性，信息容易泄漏
+
+## 具体案例
+### 百度（uid-generator）
+- https://github.com/baidu/uid-generator
+### 美团（Leaf）
+- https://github.com/Meituan-Dianping/Leaf
+### 滴滴（Tinyid）
+- https://github.com/didi/tinyid
+
 ## References
 - https://zhuanlan.zhihu.com/p/107939861
 - https://tech.meituan.com/2017/04/21/mt-leaf.html

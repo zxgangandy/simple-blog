@@ -255,7 +255,7 @@ public class SnowFlake {
 - Leaf同时支持号段模式和snowflake算法模式，可以切换使用
 ### 滴滴（Tinyid）
 - https://github.com/didi/tinyid
-- Tinyid是基于号段模式原理实现
+- Tinyid是基于号段模式原理实现K
 
 ## References
 - https://zhuanlan.zhihu.com/p/107939861

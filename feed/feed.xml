@@ -7800,6 +7800,7 @@ Java版本的Snowflake算法简单实现：&lt;/p&gt;
 &lt;li&gt;用户是否参与过某秒杀活动&lt;/li&gt;
 &lt;li&gt;伪造请求大量id查询不存在的记录，此时缓存未命中，如何避免缓存穿透。那么对于类似这种，大数据量集合，如何准确快速的判断某个数据是否在大数据量集合中，并且不占用内存，就是布隆过滤器的典型应用场景&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90&quot;&gt;#&lt;/a&gt; 简单例子&lt;/h2&gt;
 &lt;h2 id=&quot;references&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#references&quot;&gt;#&lt;/a&gt; References&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000024566947&quot;&gt;https://segmentfault.com/a/1190000024566947&lt;/a&gt;&lt;/li&gt;

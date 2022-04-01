@@ -62,7 +62,11 @@ image: /img/posts/zxgangandy/uuid-shellcode/uuid-in-memory.png
 - 用户是否参与过某秒杀活动
 - 伪造请求大量id查询不存在的记录，此时缓存未命中，如何避免缓存穿透。那么对于类似这种，大数据量集合，如何准确快速的判断某个数据是否在大数据量集合中，并且不占用内存，就是布隆过滤器的典型应用场景
 
-## 简单例子
+## 具体实现
+### guava布隆过滤器
+- 参看BloomFilter，适合于单机环境
+### redis布隆过滤器
+- 参看redisson的RBloomFilter
 
 ## References
 - https://segmentfault.com/a/1190000024566947

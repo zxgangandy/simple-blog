@@ -5,7 +5,7 @@
 	
 	<link href="https://zxgangandy.github.io/feed/feed.xml" rel="self"/>
 	<link href="https://zxgangandy.github.io"/>
-	<updated>2022-03-28T00:00:00-00:00</updated>
+	<updated>2022-04-08T00:00:00-00:00</updated>
 	<id>https://zxgangandy.github.io</id>
 	<author>
 		<name>zxgangandy Blog</name>
@@ -7573,7 +7573,7 @@ MySQL_1 配置：&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h4 id=&quot;%E7%BC%BA%E7%82%B9%EF%BC%9A-2&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E7%BC%BA%E7%82%B9%EF%BC%9A-2&quot;&gt;#&lt;/a&gt; 缺点：&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;水平扩展困难，不利于后续扩容&lt;/li&gt;
+&lt;li&gt;系统定义好了起始值、步长和机器台数，水平扩展困难，不利于后续扩容&lt;/li&gt;
 &lt;li&gt;而且实际上单个数据库自身压力还是大，依旧无法满足高并发场景&lt;/li&gt;
 &lt;li&gt;安全系数也低&lt;/li&gt;
 &lt;/ul&gt;
@@ -7751,6 +7751,90 @@ Java版本的Snowflake算法简单实现：&lt;/p&gt;
 &lt;p&gt;布隆过滤器（英语：Bloom Filter）是 1970 年由布隆提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。主要用于判断一个元素是否在一个集合中。&lt;/p&gt;
 &lt;p&gt;本质上布隆过滤器是一种数据结构，比较巧妙的概率型数据结构（probabilistic data structure），特点是高效地插入和查询，可以用来告诉你 “某样东西一定不存在或者可能存在”。&lt;/p&gt;
 &lt;p&gt;相比于传统的 List、Set、Map 等数据结构，它更高效、占用空间更少，空间效率和查询时间都远远超过一般的算法，但是缺点是其返回的结果是概率性的，而不是确切的。&lt;/p&gt;
+&lt;!-- summary --&gt;
+&lt;h2 id=&quot;%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86&quot;&gt;#&lt;/a&gt; 实现原理&lt;/h2&gt;
+&lt;p&gt;当一个元素被加入集合时，通过K个散列函数将这个元素映射成一个位数组中的K个点（offset），把它们置为1。检索时，我们只要看看这些点是不是都是1就（大约）知道集合中有没有它了：如果这些点有任何一个0，则被检元素一定不在；如果都是1，则被检元素很可能在。这就是布隆过滤器的基本思想。&lt;/p&gt;
+&lt;p&gt;简单来说就是准备一个长度为m的位数组并初始化所有元素为 0，用 k 个散列函数对元素进行 k 次散列运算跟 len (m) 取余得到 k 个位置并将m中对应位置设置为 1。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://zxgangandy.github.io/img/posts/zxgangandy/bloom-filter/m05wqzPawS.webp&quot; alt=&quot;m05wqzPawS&quot;&gt;&lt;/p&gt;
+&lt;p&gt;为什么会存在有不确定的情况呢？这里举一个简单的例子：假设现在有一个 8 bits 的二进制空间作为布隆过滤器，然后我们插入3和5这两个十进制数，哈希函数就选取简单的十进制转二进制，即插入 011 和 101，此时二进制空间的数据则为 00000111。&lt;/p&gt;
+&lt;p&gt;如果此时我们在布隆过滤器中检索3和5两个十进制数，则可以认为他们可能存在。检索十进制数9，对应二进制为1001，则判定为不存在，这个结果是必然的。但如果我们检索7这个十进制数，由于它的二进制表示为0111，因此会被误判为存在。所以才会出现上述的规则，而且随着插入元素数量的增加，出现误判的概率也会上升，因此布隆过滤器不适用于对精确度要求高的应用场合。&lt;/p&gt;
+&lt;h3 id=&quot;%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0&quot;&gt;#&lt;/a&gt; 布隆过滤器添加元素&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;将要添加的元素给k个哈希函数&lt;/li&gt;
+&lt;li&gt;得到对应于位数组上的k个位置&lt;/li&gt;
+&lt;li&gt;将这k个位置设为1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0&quot;&gt;#&lt;/a&gt; 布隆过滤器查询元素&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;将要查询的元素给k个哈希函数&lt;/li&gt;
+&lt;li&gt;得到对应于位数组上的k个位置&lt;/li&gt;
+&lt;li&gt;如果k个位置有一个为0，则肯定不在集合中&lt;/li&gt;
+&lt;li&gt;如果k个位置全部为1，则可能在集合中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;%E4%BC%98%E7%BC%BA%E7%82%B9&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E4%BC%98%E7%BC%BA%E7%82%B9&quot;&gt;#&lt;/a&gt; 优缺点&lt;/h2&gt;
+&lt;h3 id=&quot;%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A&quot;&gt;#&lt;/a&gt; 布隆过滤器的优点：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;时间复杂度低，增加和查询元素的时间复杂为O(N)，（N为哈希函数的个数，通常情况比较小）&lt;/li&gt;
+&lt;li&gt;保密性强，布隆过滤器不存储元素本身&lt;/li&gt;
+&lt;li&gt;存储空间小，如果允许存在一定的误判，布隆过滤器是非常节省空间的（相比其他数据结构如Set集合）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9A&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9A&quot;&gt;#&lt;/a&gt; 布隆过滤器的缺点：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;有点一定的误判率，但是可以通过调整参数来降低&lt;/li&gt;
+&lt;li&gt;无法获取元素本身&lt;/li&gt;
+&lt;li&gt;很难删除元素&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF&quot;&gt;#&lt;/a&gt; 应用场景&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;原本有10亿个号码，现在又来了10万个号码，要快速准确判断这10万个号码是否在10亿个号码库中？解决办法一：将10亿个号码存入数据库中，进行数据库查询，准确性有了，但是速度会比较慢。解决办法二：将10亿号码放入内存中，比如Redis缓存中，这里我们算一下占用内存大小：10亿*8字节=8GB，通过内存查询，准确性和速度都有了，但是大约8gb的内存空间，挺浪费内存空间的&lt;/li&gt;
+&lt;li&gt;接触过爬虫的，应该有这么一个需求，需要爬虫的网站千千万万，对于一个新的网站url，我们如何判断这个url我们是否已经爬过了？解决办法还是上面的两种，很显然，都不太好。&lt;/li&gt;
+&lt;li&gt;数据库防止穿库。 Google Bigtable，HBase 和 Cassandra 以及 Postgresql 使用BloomFilter来减少不存在的行或列的磁盘查找。避免代价高昂的磁盘查找会大大提高数据库查询操作的性能&lt;/li&gt;
+&lt;li&gt;业务场景中判断用户是否阅读过某视频或文章，比如抖音或头条，当然会导致一定的误判，但不会让用户看到重复的内容。&lt;/li&gt;
+&lt;li&gt;缓存宕机、缓存击穿场景，一般判断用户是否在缓存中，如果在则直接返回结果，不在则查询db，如果来一波冷数据，会导致缓存大量击穿，造成雪崩效应，这时候可以用布隆过滤器当缓存的索引，只有在布隆过滤器中，才去查询缓存，如果没查询到，则穿透到db。如果不在布隆器中，则直接返回&lt;/li&gt;
+&lt;li&gt;WEB拦截器，如果相同请求则拦截，防止重复被攻击。用户第一次请求，将请求参数放入布隆过滤器中，当第二次请求时，先判断请求参数是否被布隆过滤器命中。可以提高缓存命中率。Squid 网页代理缓存服务器在 cache digests 中就使用了布隆过滤器。Google Chrome浏览器使用了布隆过滤器加速安全浏览服务&lt;/li&gt;
+&lt;li&gt;Venti 文档存储系统也采用布隆过滤器来检测先前存储的数据&lt;/li&gt;
+&lt;li&gt;SPIN 模型检测器也使用布隆过滤器在大规模验证问题时跟踪可达状态空间&lt;/li&gt;
+&lt;li&gt;字处理软件中，需要检查一个英语单词是否拼写正确&lt;/li&gt;
+&lt;li&gt;在FBI，一个嫌疑人的名字是否已经在嫌疑名单上&lt;/li&gt;
+&lt;li&gt;黑名单过滤&lt;/li&gt;
+&lt;li&gt;同理还有垃圾邮箱的过滤。&lt;/li&gt;
+&lt;li&gt;手机号是否重复注册&lt;/li&gt;
+&lt;li&gt;用户是否参与过某秒杀活动&lt;/li&gt;
+&lt;li&gt;伪造请求大量id查询不存在的记录，此时缓存未命中，如何避免缓存穿透。那么对于类似这种，大数据量集合，如何准确快速的判断某个数据是否在大数据量集合中，并且不占用内存，就是布隆过滤器的典型应用场景&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0&quot;&gt;#&lt;/a&gt; 具体实现&lt;/h2&gt;
+&lt;h3 id=&quot;guava%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#guava%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8&quot;&gt;#&lt;/a&gt; guava布隆过滤器&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;参看BloomFilter，适合于单机环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#redis%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8&quot;&gt;#&lt;/a&gt; redis布隆过滤器&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;参看redisson的RBloomFilter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;references&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#references&quot;&gt;#&lt;/a&gt; References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000024566947&quot;&gt;https://segmentfault.com/a/1190000024566947&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.51cto.com/zhangxueliang/2969274&quot;&gt;https://blog.51cto.com/zhangxueliang/2969274&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Bloom_filter&quot;&gt;https://en.wikipedia.org/wiki/Bloom_filter&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+		</content>
+	</entry>
+	
+	<entry>
+		<title>位云算</title>
+		<link href="https://zxgangandy.github.io/posts/zxgangandy/bits/"/>
+		<updated>2022-04-08T00:00:00-00:00</updated>
+		<id>https://zxgangandy.github.io/posts/zxgangandy/bits/</id>
+		<content type="html">
+		  &lt;!-- summary --&gt;
+&lt;p&gt;什么是位运算？&lt;br&gt;
+程序中的所有数在计算机内存中都是以二进制的形式储存的。位运算说穿了，就是直接对整数在内存中的二进制位进行操作。比如，and运算本来是一个逻辑运算符，但整数与整数之间也可以进行and运算。举个例子，6的二进制是110，11的二进制是1011，那么6 and 11的结果就是2，它是二进制对应位进行逻辑运算的结果（0表示False，1表示True，空位都当0处理）：&lt;br&gt;
+110&lt;br&gt;
+AND 1011&lt;br&gt;
+———-&lt;br&gt;
+0010  –&amp;gt;  2&lt;br&gt;
+由于位运算直接对内存数据进行操作，不需要转成十进制，因此处理速度非常快。当然有人会说，这个快了有什么用，计算6 and 11没有什么实际意义啊。这一系列的文章就将告诉你，位运算到底可以干什么，有些什么经典应用，以及如何用位运算优化你的程序。&lt;/p&gt;
 &lt;!-- summary --&gt;
 &lt;h2 id=&quot;%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86&quot;&gt;&lt;a class=&quot;direct-link&quot; href=&quot;#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86&quot;&gt;#&lt;/a&gt; 实现原理&lt;/h2&gt;
 &lt;p&gt;当一个元素被加入集合时，通过K个散列函数将这个元素映射成一个位数组中的K个点（offset），把它们置为1。检索时，我们只要看看这些点是不是都是1就（大约）知道集合中有没有它了：如果这些点有任何一个0，则被检元素一定不在；如果都是1，则被检元素很可能在。这就是布隆过滤器的基本思想。&lt;/p&gt;
